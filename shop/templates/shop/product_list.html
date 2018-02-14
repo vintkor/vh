@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <ul class="list-group">
+        {% for product in products %}
+            <li class="list-group-item">
+                <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                <a href="{{ product.get_edit_url }}" class="pull-right"><span class="label label-primary">Edit</span></a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

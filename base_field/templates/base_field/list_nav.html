@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <ul class="list-group" style="margin-top: 30px;">
+        {% for page in pages %}
+            <a href="{{ page.get_absolute_url }}" class="list-group-item">{{ page.title }}</a>
+        {% endfor %}
+    </ul>
+{% endblock %}
