@@ -16,22 +16,15 @@ class Page(BaseModel):
 
     def get_fields(self):
         list_fields = [
-            Image.objects.filter(content_type__app_label='base_field'),
-            Text.objects.filter(content_type__app_label='base_field'),
+            Image.objects.filter(object_id=self.id),
+            Text.objects.filter(object_id=self.id),
         ]
-        some = []
-
-        for qs in list_fields:
-            for i in qs:
-                some.append(i)
 
         new_some = {}
-
-        for i in some:
-            f_type = (i._meta.label).split('.')[1]
-            new_some['{}__{}'.format(f_type.lower(), i.slug)] = i.content
-
-        print(new_some)
+        for qs in list_fields:
+            for i in qs:
+                f_type = (i._meta.label).split('.')[1]
+                new_some['{}__{}'.format(f_type.lower(), i.slug)] = i.content
 
         return new_some
 
