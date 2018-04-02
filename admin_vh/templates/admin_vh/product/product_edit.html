@@ -1,0 +1,84 @@
+{% extends 'admin_base.html' %}
+{% load l10n %}
+
+{% block pagename %}
+    {% if product.title %}
+        Редактировать "{{ product.title }}" <a target="_blank" href="{{ product.get_absolute_url }}" class="btn btn-primary pull-right">Смотреть на сайте</a>
+    {% else %}
+        Добавить новый товар
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="col-md-12">
+        <form action="" method="post">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="form-group">
+                        <label for="product-title">Title</label>
+                        <input type="text" name="product-title" id="product-title" value="{{ product.title }}"
+                               class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="product-price">Price</label>
+                        <input type="number" step="0.01" name="product-price" id="product-price"
+                               value="{{ product.price | unlocalize }}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="product-is_simple">Is simple</label>
+                        <input type="checkbox" name="product-is_simple" id="product-is_simple"
+                               {% if product.is_simple %}checked{% endif %}>
+                    </div>
+                </div>
+            </div>
+
+
+            <h3>Характеристики</h3>
+
+
+            <div id="parameters">
+                {% for parameter in product.productparameter_set.all %}
+                    <div class="row row-parameter">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <select name="parameter" class="form-control select2 get-parameter-value" onchange="getParameters(this)">
+                                    {% for p in parameters %}
+                                        <option value="{{ p.id }}" {% if p.id == parameter.parameter.id %}selected{% endif %}>{{ p.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <select name="parameter-choice-value" id="" class="form-control select2 set-parameter-value">
+                                    {% for value in parameter.parameter.parametervalue_set.all %}
+                                        <option value="{{ value.id }}" {% if parameter.value.id == value.id %}selected{% endif %}>{{ value.value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+
+                                <input type="text" class="form-control" value="" name="parameter-custom-value">
+
+                            </div>
+                        </div>
+                        <button class="btn btn-danger delete-parameter">Удалить строку</button>
+                    </div>
+                {% endfor %}
+            </div>
+            <button id="add-parameter" class="btn btn-warning">Добавить характеристику</button>
+
+
+            <input type="submit" name="save-form" class="btn btn-success" value="Сохранить товар">
+        </form>
+    </div>
+{% endblock content %}

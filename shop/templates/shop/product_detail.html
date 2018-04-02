@@ -2,10 +2,22 @@
 
 
 {% block content %}
-    <h1>{{ product.title }}
-    {% if product.is_simple %}
-        <span class="label label-primary" style="font-size: 20px; position: relative; top: -5px;">{{ product.price }} грн</span>
-    {% endif %}
-    <a href="{{ product.get_edit_url }}" class="pull-right"><span class="label label-primary">Edit</span></a>
+    <h1>
+        {{ product.title }}
+        {% if product.is_simple %}
+            <span class="label label-primary" style="font-size: 20px; position: relative; top: -5px;">{{ product.price }} грн</span>
+        {% endif %}
+        <a href="{{ product.get_edit_url }}" class="pull-right"><span class="label label-primary">Edit</span></a>
     </h1>
+    <br>
+    <div class="col-md-6 col-md-offset-3">
+        <table class="table table-striped">
+            {% for parameter in product.productparameter_set.all %}
+                <tr>
+                    <td>{{ parameter.parameter.title }}</td>
+                    <td>{{ parameter.value.value }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock content %}

@@ -47,9 +47,10 @@ except:
         'ckeditor',
         'ckeditor_uploader',
         'sorl.thumbnail',
+        'widget_tweaks',
 
         'shop',
-        'base_field',
+        'admin_vh',
     ]
 
     MIDDLEWARE = [
@@ -88,30 +89,30 @@ except:
     # Database
     # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'vh',
-            'USER': 'root',
-            'PASSWORD': '7108471084',
-            'HOST': '127.0.0.1',
-            'PORT': '',
-            'OPTIONS': {
-                "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
-            }
-        }
-    }
-
     # DATABASES = {
     #     'default': {
-    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'ENGINE': 'django.db.backends.mysql',
     #         'NAME': 'vh',
-    #         'USER': 'vintkor',
-    #         'PASSWORD': 'rexbycrbq71084',
+    #         'USER': 'root',
+    #         'PASSWORD': '7108471084',
     #         'HOST': '127.0.0.1',
-    #         'PORT': '5432',
+    #         'PORT': '',
+    #         'OPTIONS': {
+    #             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+    #         }
     #     }
     # }
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'vh',
+            'USER': 'vintkor',
+            'PASSWORD': 'rexbycrbq71084',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
 
 
     # Password validation

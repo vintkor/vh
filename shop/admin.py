@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import (
-    Category, Product, Parameter, ParameterValue,
+    Category, Product, Parameter, ParameterValue, ProductParameter,
 )
 
 
@@ -17,7 +17,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'is_simple', 'price', 'old_price',)
-    filter_horizontal = ('parameter',)
+    # filter_horizontal = ('parameter',)
 
 
 @admin.register(Parameter)
@@ -28,3 +28,8 @@ class ParameterAdmin(admin.ModelAdmin):
 @admin.register(ParameterValue)
 class ParameterValueAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(ProductParameter)
+class ProductParameterAdmin(admin.ModelAdmin):
+    list_display = ('product', 'parameter', 'value', 'created')

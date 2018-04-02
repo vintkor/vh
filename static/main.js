@@ -14,13 +14,15 @@
         }
         return cookieValue;
     }
+
     var csrftoken = getCookie('csrftoken');
 
     function csrfSafeMethod(method) {
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     }
+
     $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
+        beforeSend: function (xhr, settings) {
             if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
             }
@@ -43,11 +45,11 @@
         $.ajax({
             method: 'POST',
             data: {'action': 'add-parameter'},
-            success: function(data){
+            success: function (data) {
                 container.append(data);
                 select2init();
             },
-            error: function(e){
+            error: function (e) {
                 console.log(e);
             }
         });
@@ -55,10 +57,33 @@
 
     $(document).on('click', '.delete-parameter', function (e) {
         e.preventDefault();
-        var row = $(this).parents('.row-parameter');
-        if (confirm('Remove this parameter')){
-            row.remove();
-        }
+        var row = $(this).parent('.row-parameter');
+        swal({
+            title: 'Вы уверены?',
+            text: 'You will not be able to recover this imaginary file!',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Да, удалить!',
+            cancelButtonText: 'Нет, не удалять'
+        }).then((result) => {
+            if(result.value) {
+                row.hide(800);
+                setTimeout(function () {
+                    row.remove();
+                }, 800);
+                swal(
+                    'Удалено!',
+                    'Your imaginary file has been deleted.',
+                    'success'
+                )
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal(
+                    'Отменено',
+                    'Your imaginary file is safe :)',
+                    'error'
+                )
+            }
+        })
     });
 
 })();
@@ -70,10 +95,10 @@ function getParameters(select) {
         method: 'POST',
         data: {'action': 'get-parameter-value', 'parameter_id': parameterId},
         dataType: 'JSON',
-        success: function(data){
+        success: function (data) {
             var select2 = self.parents('.row-parameter').find('.set-parameter-value');
             select2.empty();
-            if (data.length > 0){
+            if (data.length > 0) {
                 data.forEach(function (index) {
                     var newOption = new Option(index.value, index.id, true, true);
                     select2.append(newOption).trigger('change');
@@ -83,8 +108,14 @@ function getParameters(select) {
                 select2.prop("disabled", true);
             }
         },
-        error: function(e){
+        error: function (e) {
             console.log(e);
         }
     });
 }
+
+(function () {
+    $('#example').dataTable();
+})();
+
+$('.addFormControl').find('input, select').addClass('form-control');

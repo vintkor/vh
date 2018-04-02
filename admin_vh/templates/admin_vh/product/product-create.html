@@ -1,0 +1,25 @@
+{% extends 'admin_base.html' %}
+
+{% block pagename %}
+    Создание товара
+{% endblock %}
+
+
+{% block content %}
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-body">
+                <form action="" method="post" class="addFormControl">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <button class="btn btn-primary">Добавить и продолжить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -4,11 +4,12 @@ from vh.settings import MEDIA_URL, MEDIA_ROOT
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('shop.urls')),
-    path('pages/', include('base_field.urls')),
+    path('vh_manager/', include('admin_vh.urls')),
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)
 
 if settings.DEBUG:

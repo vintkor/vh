@@ -1,0 +1,28 @@
+<div class="page-sidebar">
+    <a class="logo-box" href="index.html">
+        <span>Space</span>
+        <i class="icon-radio_button_unchecked" id="fixed-sidebar-toggle-button"></i>
+        <i class="icon-close" id="sidebar-toggle-button-close"></i>
+    </a>
+    <div class="page-sidebar-inner">
+        <div class="page-sidebar-menu">
+            <ul class="accordion-menu">
+                <li class="active-page">
+                    <a href="{% url 'manager:dashboard' %}" class="active">
+                        <i class="menu-icon icon-home4"></i><span>Сводка</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="menu-icon fa fa-shopping-cart"></i><span>Каталог</span><i
+                            class="accordion-icon fa fa-angle-left"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a href="{% url 'manager:category-list' %}">Категории</a></li>
+                        <li><a href="{% url 'manager:product-list' %}">Товары</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
